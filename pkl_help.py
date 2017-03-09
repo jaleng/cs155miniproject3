@@ -24,6 +24,16 @@ def read_make_pkl(filename, generate_func, compress=False):
             obj = joblib.load(fo) # load = load object from file
         return obj
 
+def make_pkl(filename, obj, compress=False):
+    if (not os.path.isfile(filename)):
+        print(filename +
+              " object not stored. Creating and saving...")
+        with open(filename, 'wb') as fo:
+            joblib.dump(obj, fo, compress) # dump = store object to file
+        return obj
+    else:
+        print "Error - File already Exists."
+
 def get_pkl(filename):
     with open(filename, 'rb') as fo:
         obj = joblib.load(fo)

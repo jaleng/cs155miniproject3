@@ -16,12 +16,12 @@ def get_err(U, V, Y):
         err += 0.5 *(Yij - np.dot(U[i-1], V[:,j-1]))**2
     return err / float(len(Y))
 
-def train_model(M, N, K, eta, reg, Y, eps=0.0001, max_epochs=300):
+def train_model(M, N, K, eta, reg, Y, eps=0.0001, max_epochs=100):
     U = np.random.random((M,K)) - 0.5
     V = np.random.random((K,N)) - 0.5
     size = Y.shape[0]
     delta = None
-    print("training reg = %s, k = %s, M = %s, N = %s"%(reg, K, M, N))
+    print("training reg = %s, eta = %s, k = %s, M = %s, N = %s"%(reg, eta, K, M, N))
     indices = range(size)    
     for epoch in range(max_epochs):
         # Run an epoch of SGD
@@ -39,7 +39,8 @@ def train_model(M, N, K, eta, reg, Y, eps=0.0001, max_epochs=300):
         # Compute change in E_in for first epoch
         if epoch == 0:
             delta = before_E_in - E_in
-
+        elif epoch < 5:
+            continue
         # If E_in doesn't decrease by some fraction <eps>
         # of the initial decrease in E_in, stop early            
         elif before_E_in - E_in < eps * delta:
