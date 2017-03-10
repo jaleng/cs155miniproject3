@@ -1,10 +1,8 @@
 #getUV.py
 import numpy as np
-import prob2utils as util
+import prob2utils_with_bias as util
 import pkl_help as pk
-
-
-
+import projections
 
 def train_tuning(data, K, reg, eta):
     
@@ -12,7 +10,6 @@ def train_tuning(data, K, reg, eta):
     col2 = data[:, 1]
     col3 = data[:, 2]
     data = data.astype(int)
-
 
     M = int(max(col1))
     N = int(max(col2))
@@ -49,13 +46,29 @@ def tuning():
 
 def gettingUV():
     data = np.loadtxt("data.txt")
-    result = train_tuning(data, 50, .1, .01)
+    result = train_tuning(data, 20, .1, .01)
     return (result[0], result[1])
+def gettingUV_from_pkl(file1, file2):
+    U = pk.get_pkl(file1)
+    V = pk.get_pkl(file2)
+    return (U, V)
+
+def get_proj_U_V(U, V):
+    U_proj, V_proj = projections.get_projections(U, V)
+    return (U_proj, V_proj)
+def making_UVpkl(file1, file2):
+    UV = gettingUV()
+    U = UV[0]
+    V = UV[1]
+    pk.make_pkl(file1, U)
+    pk.make_pkl(file2, V)
 
 if __name__ == "__main__":
-    # UV = gettingUV()
-    # U = UV[0]
-    # V = UV[1]
-    # pk.make_pkl("saved_objs/U_k_50_reg_0_1", U)
-    # pk.make_pkl("saved_objs/V_k_50_reg_0_1", V)
-    tuning()
+
+    making_UVpkl("saved_objs/U_k_20_withbias", "saved_objs/V_k_20_withbias")
+    UV = gettingUV_from_pkl("saved_objs/U_k_20", "saved_objs/V_k_20")
+    U = UV[0]
+    V = UV[1]
+    U_proj, V_proj = get_proj_U_V(U, V)
+    print U_proj
+    print V_proj

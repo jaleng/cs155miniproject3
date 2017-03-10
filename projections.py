@@ -6,6 +6,13 @@ def get_projections(U, V):
     A, Sigma, B = np.linalg.svd(V)
     U_projected = np.dot(A[:, 0:2].T, U.T)
     V_projected = np.dot(A[:, 0:2].T, V)
+
+    # Normalize to make Unit Vectors
+    # U_projected[0, :] = U_projected[0, :] / np.linalg.norm(U_projected, axis=1)[0]
+    # U_projected[1, :] = U_projected[1, :] / np.linalg.norm(U_projected, axis=1)[1]
+    # V_projected[0, :] = V_projected[0, :] / np.linalg.norm(V_projected, axis=1)[0]
+    # V_projected[1, :] = V_projected[1, :] / np.linalg.norm(V_projected, axis=1)[1]
+    
     return U_projected, V_projected
 
 if __name__ == "__main__":
