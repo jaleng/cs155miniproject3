@@ -51,7 +51,7 @@ def get_most_popular(n_pop):
         num_of_reviews[temp1] = 0
     return pop_ids
 
-def get_highest_rated(n_rated):
+def get_highest_rated(n_rated, min_number_of_ratings):
     num_of_reviews = {}
     sum_of_reviews = {}
     pop_ids = []
@@ -64,7 +64,10 @@ def get_highest_rated(n_rated):
             num_of_reviews[x[1]] += 1.0
             sum_of_reviews[x[1]] += x[2]
     for x in sum_of_reviews.keys():
-        sum_of_reviews[x] = sum_of_reviews[x] / num_of_reviews[x]
+        if(num_of_reviews[x] < min_number_of_ratings):
+            sum_of_reviews[x] = 0
+        else:
+            sum_of_reviews[x] = sum_of_reviews[x] / num_of_reviews[x]
     for x in range(n_rated):
         temp1 = max(sum_of_reviews, key= (lambda k: (sum_of_reviews[k])))
         pop_ids.append(temp1)
@@ -73,8 +76,8 @@ def get_highest_rated(n_rated):
 
 if __name__ == "__main__":
     make_dict_and_cats()
-    get_highest_rated(10)
+    get_highest_rated(10, 10)
     get_most_popular(10)
-    # for x in get_highest_rated(10):
-    #     print id_to_movie[x]
+    for x in get_highest_rated(10, 10):
+        print id_to_movie[x]
 

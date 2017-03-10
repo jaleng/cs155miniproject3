@@ -16,11 +16,12 @@ def train_tuning(data, K, reg, eta):
 
     M = int(max(col1))
     N = int(max(col2))
-    result = util.train_model(M, N, K, eta, reg, data)
+    result = util.train_model(943, 1682, K, eta, reg, data)
     return result
 
 def tuning():
     data = np.loadtxt("data.txt")
+    np.random.shuffle(data)
     training =  np.delete(data, np.s_[0:30000], axis=0)
     test = data[np.s_[0:30000], :]
     test = test.astype(int)
@@ -52,9 +53,9 @@ def gettingUV():
     return (result[0], result[1])
 
 if __name__ == "__main__":
-    UV = gettingUV()
-    U = UV[0]
-    V = UV[1]
-    pk.make_pkl("saved_objs/U_k_50_reg_0_1", U)
-    pk.make_pkl("saved_objs/V_k_50_reg_0_1", V)
-    # tuning()
+    # UV = gettingUV()
+    # U = UV[0]
+    # V = UV[1]
+    # pk.make_pkl("saved_objs/U_k_50_reg_0_1", U)
+    # pk.make_pkl("saved_objs/V_k_50_reg_0_1", V)
+    tuning()
