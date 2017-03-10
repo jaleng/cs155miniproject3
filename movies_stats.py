@@ -15,7 +15,26 @@ def make_dict_and_cats():
             if y == "1":
                 cats[counter].append(int(x[0]))
 
-    # Could use or just for reference   
+def get_most_popular(n_pop):
+    num_of_reviews = {}
+    pop_ids = []
+    data = np.genfromtxt("data.txt", dtype='int', delimiter="\t")
+    for x in data:
+        if not (x[1] in num_of_reviews.keys()):
+            num_of_reviews[x[1]] = 1
+        else:
+            num_of_reviews[x[1]] += 1
+    for x in range(n_pop):
+        temp1 = max(num_of_reviews, key= (lambda k: (num_of_reviews[k])))
+        pop_ids.append(temp1)
+        num_of_reviews[temp1] = 0
+    return pop_ids
+
+def random(n_movies):
+    return np.random.choice(max(id_to_movie.keys()), n_movies)
+
+
+ #  Could use or just for reference   
     # unknown = cats[0]
     # action = cats[1]
     # adventure = cats[2]
@@ -36,20 +55,8 @@ def make_dict_and_cats():
     # war = cats[17]
     # western = cats[18]
 
-def get_most_popular(n_pop):
-    num_of_reviews = {}
-    pop_ids = []
-    data = np.genfromtxt("data.txt", dtype='int', delimiter="\t")
-    for x in data:
-        if not (x[1] in num_of_reviews.keys()):
-            num_of_reviews[x[1]] = 1
-        else:
-            num_of_reviews[x[1]] += 1
-    for x in range(n_pop):
-        temp1 = max(num_of_reviews, key= (lambda k: (num_of_reviews[k])))
-        pop_ids.append(temp1)
-        num_of_reviews[temp1] = 0
-    return pop_ids
+def get_random_from_genre(genre, n_movies):
+    return np.random.choice(cats[genre], n_movies)
 
 def get_highest_rated(n_rated, min_number_of_ratings):
     num_of_reviews = {}
@@ -80,4 +87,3 @@ if __name__ == "__main__":
     get_most_popular(10)
     for x in get_highest_rated(10, 10):
         print id_to_movie[x]
-
