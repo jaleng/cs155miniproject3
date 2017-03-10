@@ -41,14 +41,6 @@ if __name__ == "__main__":
     make_plot(V_proj[0, :], V_proj[1, :], ms.random(10), "10 Random Movies")
     make_plot(V_proj[0, :], V_proj[1, :], ms.get_most_popular(10), "10 Most Popular Movies")
     make_plot(V_proj[0, :], V_proj[1, :], ms.get_highest_rated(10, 10), "10 Best Movies with more than 10 Reviews")
-    make_plot(V_proj[0, :], V_proj[1, :], ms.get_highest_rated(10, 10), "10 Best Movies with more than 10 Reviews")
     make_plot(V_proj[0, :], V_proj[1, :], ms.get_random_from_genre(3, 10), "10 Random Movies from Animation Genre")
     make_plot(V_proj[0, :], V_proj[1, :], ms.get_random_from_genre(7, 10), "10 Random Movies from Documentary Genre")
     make_plot(V_proj[0, :], V_proj[1, :], ms.get_random_from_genre(8, 10), "10 Random Movies from Drama Genre")
-
-
-
-    # for x in ms.get_highest_rated(10, 10):
-    #     print ms.id_to_movie[x]
-
-    
