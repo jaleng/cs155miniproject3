@@ -14,6 +14,7 @@ def make_dict_and_cats():
             counter += 1
             if y == "1":
                 cats[counter].append(int(x[0]))
+    return dict(id_to_movie), list(cats)
 
 def get_most_popular(n_pop):
     num_of_reviews = {}
